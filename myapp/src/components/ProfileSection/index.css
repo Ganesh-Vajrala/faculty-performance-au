@@ -1,0 +1,231 @@
+.picture-upload-modal{
+    position: absolute;
+}
+.edit-profile-main-container{
+    background-color: rgba(255, 255, 255, 0.352);
+    min-height: calc(100vh - 80px);
+    
+}
+
+.edit-profile-main-inner-container{
+    background-color: #ffffff;
+    padding:40px;
+    min-width:768px;
+    width:54%;
+    margin-top: 60px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    border-radius:12px;
+    margin-bottom: 40px;
+}
+
+.edit-profile-main-heading{
+    font-size: 19px;
+    font-family: 'Roboto';
+}
+
+.edit-profile-main-description{
+    font-size: 15px;
+    color: #777777;
+    font-family: 'Roboto';
+}
+.upload-pic-main-outer-container{
+    width:100%; 
+    display: flex;
+    justify-content: center;
+}
+
+.upload-pic-main-container{
+    display: flex;
+    align-items: center;
+    width: 60%;
+    border:1px dashed #c8c8c8;
+    height:200px;
+    border-radius: 8px;
+    padding: 0;
+    
+}
+.upload-from-device-container{
+    width:100%;
+    height:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    flex-direction: column;
+}
+
+
+.edited-image-container{
+    width:360px;
+    border: 1px dashed #c8c8c8;
+    border-radius: 10px;
+    height:200px;
+    display: flex;
+    align-items: center;
+    padding:12px;
+    justify-content: space-between;
+}
+.edited-image-options-container{
+    width:40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+}
+.cropped-image{
+    border-radius: 4px;
+}
+.edited-image-options-inner-container{
+    display: flex;
+    margin-bottom: 26px;
+    align-items: center;
+    cursor: pointer;
+    color: red;
+    width: fit-content;
+    
+}
+.edited-image-options-inner-container p{
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 8px;
+}
+.edited-image-options-icons{
+    margin-top: 3px;
+    
+
+}
+.profile-pic-main-heading{
+    color:#000000;
+    font-size: 16px;
+    font-family: 'Roboto';
+}
+.profile-pic-main-description{
+    color: #424242;
+    font-size: 13px;
+    font-family: 'Roboto';
+    font-weight:400;
+}
+
+.gender-option-container{
+    display: flex;
+    gap:20px;
+}
+.form-control:focus, .form-select:valid:focus,.form-check-input:valid:focus{
+    box-shadow: none;
+}
+.custom-popper::content{
+    width: 400px;
+    background-color: red;
+
+  }
+
+.custom-datepicker-wrapper {
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+
+
+  .custom-datepicker-wrapper .react-datepicker__header {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .custom-datepicker-wrapper .react-datepicker__day--selected {
+    background-color: #007bff;
+    color: #fff;
+  }
+  .datepicker-container{
+    display: flex;
+    flex-direction: column;
+  }
+.number-input::-webkit-inner-spin-button,
+.number-input::-webkit-outer-spin-button {
+        -webkit-appearance: none; /* WebKit browsers like Chrome and Safari */
+        margin: 0; /* Remove inner spin button margin */
+}
+.add-experience-button-container{
+    width: 100%;
+    padding-right:35px;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+.add-experience-button{
+    height:34px;
+    margin-top: 4px;
+    cursor: pointer;
+    border: none;
+    color: #ffffff;
+    border-radius: 4px;
+    font-family: 'Roboto';
+    font-size: 14px;
+    width:130px;
+    background:linear-gradient(to right,#C02633,#410d11);
+}
+.clear-remove-button-container{
+    margin-top: 30px;   
+}
+.clear-remove-button-container button{
+    background:linear-gradient(to right,#C02633,#410d11);
+    cursor: pointer;
+    border: none;
+    color: #ffffff;
+    border-radius: 4px;
+    font-family: 'Roboto';
+    font-size: 14px;
+    height:34px;
+    width:80px;
+    margin-left: 30px;
+}
+
+.profile-submit-button{
+    background:linear-gradient(to right,#C02633,#410d11);
+    cursor: pointer;    
+    border: none;
+    color: #ffffff;
+    border-radius: 4px;
+    font-family: 'Roboto';
+    font-size: 14px;
+    height:34px;
+    width:80px;
+    justify-content: flex-end;
+}
+
+.modal-button-container{
+    margin-top: 30px;
+    display: flex;
+    width:70%;
+    justify-content: center;
+    flex-direction: column;
+    align-items: flex-end;
+    gap:20px;
+    position: absolute;
+
+}
+.modal-button-container button{
+    border:none;
+    outline: none;
+    background-color: transparent;
+}
+.plus-minus{
+    aspect-ratio: 1;
+    font-size: xx-large;
+}
+
+.modal-body{
+    margin-top: 40px;
+    margin-bottom: 40px;
+    margin-left: 0;
+    margin-right: 0;
+}
+.upload-pic-item{
+    color: #5130e5;
+    font-weight: 400;
+    font-size: 14px;
+    font-family: 'Roboto';
+}
+.upload-pic-item-drag{
+    font-family: 'Roboto';
+    font-size: 15px;
+    color: #000;
+}

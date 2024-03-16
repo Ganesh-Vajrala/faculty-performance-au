@@ -1,0 +1,41 @@
+*{
+    box-sizing: border-box;
+}
+.profile-viewer-dropdown li,
+.profile-viewer-dropdown-Link{
+    display: flex;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    width:100%;
+    cursor: pointer;
+    padding: 8px;
+    font-size:15px;
+    border-radius: 4px;
+    font-family: 'Roboto';
+    align-items: center;
+    justify-content: space-between;
+    color: #000000;
+    padding-right: 12px;
+    transition: background-color .2s, padding-right .2s ease-in-out;
+}
+.profile-viewer-dropdown-Link{
+    text-decoration: none;
+}
+
+.profile-viewer-dropdown li:hover:not(.logout-option),
+.profile-viewer-dropdown-Link:hover{
+    background-color: #e1e1e1;
+    padding-right: 8px;
+}
+
+.profile-viewer-dropdown-list-arrow{
+    color: black;
+}
+
+.profile-viewer-dropdown li.logout-option{
+    background:linear-gradient(to right,#C02633,#410d11);
+    color: #ffffff;
+    font-size: 14px;
+    justify-content: center;
+
+}

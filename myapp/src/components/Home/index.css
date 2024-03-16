@@ -1,0 +1,31 @@
+.home-main-container{
+    max-width: 100vw;
+    min-width: 100vh;
+}
+.container-wide{
+  width: 100%;
+  max-width: 1140px; /* Set the max-width to a larger value than the default Bootstrap container (1140px) */
+  padding-left: 30px; /* Increase the left margin */
+  padding-right: 30px;
+  display: flex;
+  flex-direction: column;
+  gap:20px;
+}
+.profile-details-section-container{
+  min-height:250px;
+  background-color: red;
+  margin-top:30px;
+  align-self: center;
+  border-radius: 12px;
+  padding: 20px;
+
+}
+.other-details-entry-section-container{
+  background-color: red;
+  margin-top: 30px;
+  
+
+}
+.row-container{
+  
+}
