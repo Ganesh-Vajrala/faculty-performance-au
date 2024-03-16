@@ -280,7 +280,7 @@ app.get("/profile-details", authenticateToken, async (request, response)=>{
 });
 
 app.get("/",(request,response)=>{
-    request.send("welcome to Server");
+    response.send("welcome to Server");
 })
 
 const PORT = process.env.PORT
