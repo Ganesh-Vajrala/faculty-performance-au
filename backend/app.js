@@ -279,6 +279,10 @@ app.get("/profile-details", authenticateToken, async (request, response)=>{
 
 });
 
+app.get("/",(request,response)=>{
+    request.send("welcome to Faculty Performance Server");
+})
+
 const PORT = process.env.PORT
 
 app.listen(PORT, () => console.log("server running"));
