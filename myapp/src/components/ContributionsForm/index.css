@@ -1,0 +1,25 @@
+.entire-form-submit-button{
+    width:100px;
+}
+
+.decleration-conditions-checkbox{
+    cursor: pointer;
+    height:20px;
+    width:20px;
+}
+
+.declaration-main-conditions-container{
+    display: flex;
+    align-items: center;
+}
+.declaration-main-conditions-container label{
+    align-self: center;
+    margin:0;
+    padding-top: 10px;
+    margin-left: 14px;
+    font-family: 'Roboto';
+    color: rgb(27, 27, 27);
+    font-size: 16px;
+    margin-bottom: 8px;
+
+}

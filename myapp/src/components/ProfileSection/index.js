@@ -15,6 +15,7 @@ import { toast } from 'react-toastify';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "react-datepicker/dist/react-datepicker.css";
 import './index.css'
+import { baseUrl } from "../../Apis";
 
 
 const ProfileSection = () =>{
@@ -286,7 +287,7 @@ const ProfileSection = () =>{
           };
           
           setLoading(true);
-          const url = "http://localhost:3100/edit-profile/";
+          const url = `${baseUrl}/edit-profile/`;
           
           try {
             const response = await Axios.post(url, postData, { headers });
@@ -497,9 +498,7 @@ const ProfileSection = () =>{
                     style={{ width: "300px" }}
                     calendarClassName="custom-calendar"
                     popperClassName="custom-popper"
-                    
                     wrapperClassName="custom-datepicker-wrapper"
-                    
                     />
                 </div>
                 <div className="col-md-6">

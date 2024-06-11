@@ -1,0 +1,150 @@
+table {
+    font-family: 'Roboto';
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  table, th, td, tr {
+    border: 1px solid black;
+  }
+  
+  th, td {
+    text-align: center; 
+    vertical-align: middle;
+  }
+  th{
+    height: 54px; 
+  }
+  td{
+    height:46px;
+  }
+  thead {
+    background-color: #f2f2f2;
+  }
+  
+  th {
+    font-weight: bold;
+  }
+  
+.button-options-save{
+height: 40px;
+  border-radius: 4px;
+  width: 80px;
+  font-family: 'Roboto';
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  color: #ffffff;
+  background:#aaaaaa;
+}
+
+.actived-button{
+    background:linear-gradient(to right,#C02633,#410d11);
+}
+.add-button{
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.save-button-bg{
+    font-family: 'Roboto';
+   display: flex;
+   align-items: center;
+   justify-content: flex-end;
+}
+
+.api-filed-para-container{
+    height: 100%;
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.api-filed-para{
+    margin: 0;
+    align-self: center;
+    justify-self: center;
+    align-items: center;
+}
+.academic-part-1-form-input {
+    width: 100%;
+    height:100%;
+    outline: none;
+    box-sizing: border-box; 
+    text-align: center;
+    border: none;
+  }
+
+.disabled {
+    cursor: not-allowed;
+  }
+
+  .my-textarea {
+    padding: 10px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    font-size: 16px;
+    resize: vertical; 
+    font-family: 'Roboto';
+  }
+  
+  .my-textarea:focus {
+    outline: none; 
+  }
+  .aca-work-next-prev-buttons-container{
+    
+    display: flex; 
+    align-items: center;
+    justify-content: right;
+    margin-top: 10px;
+    margin-bottom: 60px;
+  }
+  .aca-work-next-prev-buttons{
+    background:linear-gradient(to right,#C02633,#410d11);
+    height: 40px;
+  border-radius: 4px;
+  width: 80px;
+  font-family: 'Roboto';
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  color: #ffffff;
+  }
+  .academic-work-main-head-element{
+    font-family: "Urbanist", Sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: #343434;
+  }
+  .academic-work-main-p1-element,
+   .academic-work-main-p2-element{
+    font-family: "Urbanist", Sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #28282B;
+    margin-top: 4px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  .academic-work-main-head-element-inner-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .notion-help-guide{
+    font-size: 24px;
+    margin-right: 4px;
+    color: #6339ee !important;
+  }
+  .notion-help-guide-content{
+    font-size: 14px;
+    font-weight: 500;
+    font-family: "Roboto";
+    color: #6339ee !important;
+    text-decoration: none !important;
+  }
+  a{
+    text-decoration: none;
+  }

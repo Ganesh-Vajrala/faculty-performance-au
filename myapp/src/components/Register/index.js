@@ -5,8 +5,8 @@ import Axios from "axios";
 import Cookies from "js-cookie";
 import { toast } from 'react-toastify';
 import { SpinnerCircularFixed } from 'spinners-react';
-
 import './index.css';
+import { baseUrl } from "../../Apis";
 
 const Register = () => {
     const departments = ["Information Technology", "Computer Science", "Cyber Security","Artifical Intelligence", "Data Science"];
@@ -42,7 +42,7 @@ const Register = () => {
         event.preventDefault();
         setLoading(true);
         const userDetails = { mail, username, password, department };
-        const url = "http://localhost:3100/register/";
+        const url = `${baseUrl}/register/`;
 
         try {
             const response = await Axios.post(url, userDetails);

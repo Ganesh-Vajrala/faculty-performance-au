@@ -1,0 +1,65 @@
+table {
+    font-family: 'Roboto';
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  table, th, td, tr {
+    border: 1px solid black;
+  }
+  
+  th, td {
+    text-align: center; 
+    vertical-align: middle;
+  }
+  th{
+    height: 56px; 
+  }
+  td{
+    height:46px;
+  }
+  thead {
+    background-color: #f2f2f2;
+  }
+  
+  th {
+    font-weight: bold;
+  }
+  .rd-form-input{
+    outline: none;
+    border: none;
+  }
+  .rd-main-heading-para{
+    font-family: "Urbanist", Sans-serif;
+    font-size: 16px;
+    color: #28282B;
+    margin-bottom: 0;
+  }
+
+  .rd-main-form-save-button-container{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .rd-main-form-save-button{
+    background:linear-gradient(to right,#C02633,#410d11);
+    height: 40px;
+  border-radius: 4px;
+  width: 120px;
+  font-family: 'Roboto';
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  color: #ffffff;
+  }
+  
+.form-backnavigation-button{
+  font-size: 26px;
+  margin-bottom: 0;
+  position: absolute;
+  left:150px;
+  margin: 4px;
+  cursor: pointer;
+}

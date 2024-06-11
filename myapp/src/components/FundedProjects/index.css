@@ -1,0 +1,62 @@
+.table-row {
+    position: relative;
+  }
+  
+  .add-button, .remove-button {
+    position: absolute;
+    top: 50%;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1;
+    padding-top: 2px;
+  }
+  
+  .add-button {
+    right: -30px;
+  }
+  
+  .remove-button {
+    left: -30px;
+  }
+  
+  .table-row:hover .remove-button {
+    display: flex;
+  }
+  
+  .table-row-container {
+    position: relative;
+  }
+  
+  .add-button-container {
+    position: relative;
+    height: 0;
+  }
+  
+  .add-button-container:hover .add-button {
+    display: flex;
+  }
+  .action-button{
+    position: relative;
+    right: inherit;
+    display: none;
+    top:10px;
+    left:10px;
+
+  }
+  .action-outer-container{
+    position: relative;
+    top:24px;
+    left:50px;
+    height: 40px;
+  }
+  .action-outer-container:hover .action-button{
+    display: block;
+
+  }

@@ -3,13 +3,15 @@ import Cookies from "js-cookie";
 import Header from "../Header";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {Button} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css'
+import { baseUrl } from "../../Apis";
+import { SpinnerCircularFixed } from 'spinners-react';
 
 const Home = () =>{
     const jwtToken = Cookies.get('jwt_token');
     const dispatch = useDispatch();
+    const [loading, setLoading] = useState(false);
     const [apiData, setApiData] = useState(null);
     const navigate = useNavigate();
     const headers = useMemo(() => ({
@@ -21,8 +23,9 @@ const Home = () =>{
           navigate("/login", { replace: true });
         }
         const fetchData = async () => {
+          setLoading(true)
           try {
-            const response = await fetch('http://localhost:3100/profile-details/', {
+            const response = await fetch(`${baseUrl}/profile-details/`, {
               headers,
             });
             const data = await response.json();
@@ -31,7 +34,9 @@ const Home = () =>{
             dispatch({ type: 'SET_DATA', payload: data });
           } catch (error) {
             console.error('Error fetching data:', error);
-          }
+          }finally {
+            setLoading(false); 
+        }
         };    
 
         fetchData();
@@ -44,12 +49,20 @@ const Home = () =>{
                     <div className="col-md-8 profile-details-section-container">
                       <div className="profile-details-section-inner-container">
                          <h1 className="Profile-details-element">Profile Details</h1>
-                         <div className="Profile-elements-wrapper">
-                         </div>
+                         { apiData&& (
+                                <>
+                                    <p>Name: {apiData.profile?apiData.profile.doctrate !== "No"?`Dr. ${apiData.profile.firstname} ${apiData.profile.lastname}`:`${apiData.profile.firstname} ${apiData.profile.lastname}`:apiData.username}</p>
+                                    <p>Department: {apiData.department}</p>
+                                    <p>Desigantion: {apiData.profile.designation}</p>
+                                    {/* Render other details if available */}
+                                </>
+                            )}
+                            <div className="edit-details-sec-button-in-profile-details">
+                              <button className="edit-button-in-details-sec" onClick={()=>navigate("/edit-profile")}>
+                                Edit
+                              </button>
+                            </div>
                       </div>
-                    </div>
-                    <div className="col-md-4 other-details-entry-section-container">
-                    
                     </div>
                   </div>
                 </div>

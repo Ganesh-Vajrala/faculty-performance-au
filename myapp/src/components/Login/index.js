@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { SpinnerCircularFixed } from 'spinners-react';
 import './index.css';
+import { baseUrl } from "../../Apis";
 
 const Login = ({ history }) => {
     const [mail, setMail] = useState("");
@@ -55,14 +56,14 @@ const Login = ({ history }) => {
         setErrorMsg(errorMsg);
     };
 
-    const submitForm = async (event) => {
-        event.preventDefault();
+    const submitForm = async (e) => {
+        e.preventDefault();
         setLoading(true);
         const userDetails = { mail, password };
-        const url = "http://localhost:3100/login/";
+        const url = `${baseUrl}/login/`;
 
         try {
-            const response = await Axios.post(url, userDetails);
+            let response = await Axios.post(url, userDetails);
 
             if (response.data && response.data.jwtToken) {
                 toast.success('Login Successful !');
