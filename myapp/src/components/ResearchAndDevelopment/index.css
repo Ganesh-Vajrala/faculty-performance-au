@@ -63,3 +63,6 @@ table {
   margin: 4px;
   cursor: pointer;
 }
+.button-width{
+  width:110px;
+}

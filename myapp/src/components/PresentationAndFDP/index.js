@@ -1,9 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { RiDeleteBinLine } from "react-icons/ri";
+import { IoCloudUploadOutline } from "react-icons/io5";
+import { RxCross1 } from "react-icons/rx";
+import axios from 'axios';
+import { baseUrl } from '../../Apis';
+import { toast } from 'react-toastify';
+import Cookies from 'js-cookie';
+import { useSelector } from 'react-redux';
 
-const PresentationAndFDP = () => {
-  const [presentations, setPresentations] = useState([
-    {
-      sno: '',
+const PresentationAndFDP = ({onDataChange, validationError, validationFileError, fetchedPresentations, fetchedPresentationUploadedFiles}) => {
+  const jwtToken = Cookies.get('jwt_token');
+  const selectedYear = useSelector((state) => state.selectedYear);
+  
+  const [presentations, setPresentations] = useState(fetchedPresentations ||[{
       paperTitle: '',
       conferenceTitle: '',
       organizedBy: '',
@@ -11,6 +20,12 @@ const PresentationAndFDP = () => {
       daysIndexed: '',
     }
   ]);
+  const [presentationUploadedFiles, setPresentationUploadedFiles] = useState(fetchedPresentationUploadedFiles || []);
+  
+  useEffect(() => {
+    console.log(presentations)
+    onDataChange({ presentations, presentationUploadedFiles });
+  }, [presentations, presentationUploadedFiles]);
 
   const handleInputChange = (index, event) => {
     const { name, value } = event.target;
@@ -32,9 +47,7 @@ const PresentationAndFDP = () => {
     setPresentations(updatedPresentations);
   };
 
-  const handleAddPresentation = () => {
-    setPresentations([...presentations, {
-      sno: '',
+  const handleAddPresentation = () => {setPresentations([...presentations, {
       paperTitle: '',
       conferenceTitle: '',
       organizedBy: '',
@@ -50,6 +63,61 @@ const PresentationAndFDP = () => {
     }
   };
 
+  const presentationHandleFileChange = (event) => {
+    const selectedFiles = Array.from(event.target.files);
+    const uniqueFiles = selectedFiles.filter(file => !presentationUploadedFiles.some(existingFile => (existingFile.name || existingFile.originalName) === file.name));
+    setPresentationUploadedFiles([...presentationUploadedFiles, ...uniqueFiles]);
+  };
+
+  
+  const presentationHandleDeleteFile = async (index) => {
+    const fileToDelete = presentationUploadedFiles[index];
+    const { fileName } = fileToDelete; 
+  
+    try {
+      const response = await axios.delete(`${baseUrl}/delete-research-development-file`, {
+        headers: {
+          Authorization: `Bearer ${jwtToken}`
+        },
+        data: {
+          year: selectedYear,
+          fileName: fileName,
+          fileType: 'presentationAndFDPUplodedFiles'
+        }
+      });
+
+      if (response.status === 200 || response.status === 404) {
+        const newFiles = [...presentationUploadedFiles];
+        newFiles.splice(index, 1);
+        setPresentationUploadedFiles(newFiles);
+        toast.success('File deleted successfully');
+      }
+    } catch (error) {
+      if(error.response.status === 404){
+        const newFiles = [...presentationUploadedFiles];
+        newFiles.splice(index, 1);
+        setPresentationUploadedFiles(newFiles);
+        toast.success('File deleted successfully');
+      }
+      else
+      toast.error('Failed to delete file. Please try again.');
+    }
+    const newFiles = [...presentationUploadedFiles];
+    newFiles.splice(index, 1);
+    setPresentationUploadedFiles(newFiles);
+  };
+
+  const handleFileClick = (file) => {
+    const { fileName } = file; 
+    console.log(file)
+    if (fileName) {
+      
+      window.open(`${baseUrl}/uploads/${fileName}`, '_blank');
+    } else {
+      toast.error('File Preview not available.');
+    }
+  };
+
   return (
     <div className="mb-5 mt-5">
       <h3 className='academic-work-main-p2-element'>b. Presentation in International Conference/Symposia or Attended FDP/STTP</h3>
@@ -61,7 +129,7 @@ const PresentationAndFDP = () => {
             <th>Organized by</th>
             <th>Indexed in? (WoS/Scopus)</th>
             <th>No. of days indexed in</th>
-            <th>Actions</th>
+            <th>Action</th>
         </thead>
         <tbody>
           {presentations.map((presentation, index) => (
@@ -89,15 +157,55 @@ const PresentationAndFDP = () => {
                 <input type="number" name="daysIndexed" value={presentation.daysIndexed} onChange={(e) => handleInputChange(index, e)} className="form-control rd-form-input" />
               </td>
               <td>
-                <button onClick={() => handleRemovePresentation(index)} className='research-publications-remove-button' disabled={presentations.length <= 1}>Remove</button>
+                <button onClick={() => handleRemovePresentation(index)} className='research-publications-remove-button-icon' disabled={presentations.length <= 1}>
+                
+              <RiDeleteBinLine className='form-delete-icon'/>
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <div className='error-message'>
+        <p>{validationError}</p>
+      </div>
+       <div>
+        <div className='upload-description-container'>
       <button onClick={handleAddPresentation}
        className='research-publications-add-button'
       >Add Presentation</button>
+      
+        <input
+          type="file"
+          multiple
+          onChange={presentationHandleFileChange}
+          id="file-presentation-input"
+          className="file-input file-upload-input"
+          />
+        <label htmlFor="file-presentation-input" className= {`file-input-label ${validationFileError ? 'error-border' : ''}`}
+         title="Upload Files">
+          <IoCloudUploadOutline  />
+          <p>Choose Files</p>
+        </label>
+          </div >
+        {presentationUploadedFiles.length > 0 && (
+          <div className="file-list">
+            <p className='upload-file-container-head'>Selected Files</p>
+            <ul>
+              {presentationUploadedFiles.map((file, index) => (
+                <li key={index}>
+                  <span className="filename"
+                   title={file.originalName?file.originalName:file.name}
+                   onClick={() => handleFileClick(file)}
+                   style={{ cursor: 'pointer' }}
+                   >{file.originalName?file.originalName:file.name}</span>
+                  <button onClick={() => presentationHandleDeleteFile(index)}><RxCross1 />  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

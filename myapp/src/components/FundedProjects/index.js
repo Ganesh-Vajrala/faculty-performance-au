@@ -1,11 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { RiDeleteBinLine } from "react-icons/ri";
+import { IoCloudUploadOutline } from "react-icons/io5";
+import { RxCross1 } from "react-icons/rx";
+import { baseUrl } from '../../Apis';
+import { toast } from 'react-toastify';
+import Cookies from 'js-cookie';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 
-const FundedProjects = () => {
-  const [projects, setProjects] = useState([
-    { title: '', agency: '', grant: '', status: '', score: '' },
-    { title: '', agency: '', grant: '', status: '', score: '' },
+const FundedProjects = ({onDataChange,validationError, validationFileError, fetchedProjects, fetchedProjectsUploadedFiles}) => {
+  const jwtToken = Cookies.get('jwt_token');
+  const selectedYear = useSelector((state) => state.selectedYear);
+  const [projects, setProjects] = useState(fetchedProjects || [
+    { title: '', agency: '', grant: '', status: '' },
+    { title: '', agency: '', grant: '', status: '' },
   ]);
+  const [fundedProjectsUploadedFiles, setFundedProjectsUploadedFiles] = useState(fetchedProjectsUploadedFiles || []);
+
+  useEffect(() => {
+    onDataChange({ projects, fundedProjectsUploadedFiles });
+  }, [projects, fundedProjectsUploadedFiles]);
 
   const handleInputChange = (index, field, value) => {
     const updatedProjects = [...projects];
@@ -14,13 +29,65 @@ const FundedProjects = () => {
   };
 
   const handleAddProject = () => {
-    setProjects([...projects, { title: '', agency: '', grant: '', status: '', score: '' }]);
+    setProjects([...projects, { title: '', agency: '', grant: '', status: '' }]);
   };
 
   const handleRemoveProject = (index) => {
     if (projects.length > 1) {
       const updatedProjects = projects.filter((_, i) => i !== index);
       setProjects(updatedProjects);
+    }
+  };
+
+  const handleFileChange = (event) => {
+    const selectedFiles = Array.from(event.target.files);
+    const uniqueFiles = selectedFiles.filter(file => !fundedProjectsUploadedFiles.some(existingFile => (existingFile.name || existingFile.originalName) === file.name));
+    setFundedProjectsUploadedFiles([...fundedProjectsUploadedFiles, ...uniqueFiles]);
+  };
+
+  
+  const handleDeleteFile = async (index) => {
+    const fileToDelete = fundedProjectsUploadedFiles[index];
+    const { fileName } = fileToDelete; 
+  
+    try {
+      const response = await axios.delete(`${baseUrl}/delete-research-development-file`, {
+        headers: {
+          Authorization: `Bearer ${jwtToken}`
+        },
+        data: {
+          year: selectedYear,
+          fileName: fileName,
+          fileType: 'fundedProjectsUploadedFiles'
+        }
+      });
+
+      if (response.status === 200 || response.status === 404) {
+        const newFiles = [...fundedProjectsUploadedFiles];
+        newFiles.splice(index, 1);
+        setFundedProjectsUploadedFiles(newFiles);
+        toast.success('File deleted successfully');
+      }
+    } catch (error) {
+      if(error.response.status === 404){
+        const newFiles = [...fundedProjectsUploadedFiles];
+        newFiles.splice(index, 1);
+        setFundedProjectsUploadedFiles(newFiles);
+        toast.success('File deleted successfully');
+      }
+      else
+      toast.error('Failed to delete file. Please try again.');
+    }
+  };
+
+  const handleFileClick = (file) => {
+    const { fileName } = file; 
+    console.log(file)
+    if (fileName) {
+      
+      window.open(`${baseUrl}/uploads/${fileName}`, '_blank');
+    } else {
+      toast.error('File Preview not available.');
     }
   };
 
@@ -34,7 +101,6 @@ const FundedProjects = () => {
             <th>Details of Funding agency</th>
             <th>Grant (in Rs.)</th>
             <th>Status (Sanctioned/Submitted)</th>
-            <th>Score (Max. 5)</th>
             <th>Action</th>
         </thead>
         <tbody>
@@ -82,33 +148,59 @@ const FundedProjects = () => {
                 </select>
               </td>
               <td>
-                <input
-                  type="number"
-                  name="score"
-                  value={project.score}
-                  onChange={(e) => handleInputChange(index, 'score', e.target.value)}
-                  className="form-control rd-form-input"
-                />
-              </td>
-              <td>
                 <button
                   type="button"
-                className='research-publications-remove-button'
+                className='research-publications-remove-button-icon'
                   onClick={() => handleRemoveProject(index)}
                   disabled={projects.length <= 1}
                 >
-                  Remove
+                  <RiDeleteBinLine className='form-delete-icon'/>
                 </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <button type="button"
+      <div className='error-message'>
+        <p>{validationError}</p>
+      </div>
+      <div>
+        <div className='upload-description-container'>
+        <button type="button"
        className='research-publications-add-button'
         onClick={handleAddProject}>
         Add Project
       </button>
+        <input
+          type="file"
+          multiple
+          onChange={handleFileChange}
+          id="file-funded-input"
+          className="file-input file-upload-input"
+          />
+        <label htmlFor="file-funded-input" className= {`file-input-label ${validationFileError ? 'error-border' : ''}`}
+         title="Upload Files">
+          <IoCloudUploadOutline  />
+          <p>Choose Files</p>
+        </label>
+          </div>
+        {fundedProjectsUploadedFiles.length > 0 && (
+          <div className="file-list">
+            <p className='upload-file-container-head'>Selected Files</p>
+            <ul>
+              {fundedProjectsUploadedFiles.map((file, index) => (
+                <li key={index}>
+                  <span className="filename"
+                  onClick={() => handleFileClick(file)}
+                  style={{ cursor: 'pointer' }}
+                  title={file.originalName?file.originalName:file.name}>{file.originalName?file.originalName:file.name}</span>
+                  <button onClick={() => handleDeleteFile(index)}><RxCross1 />  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

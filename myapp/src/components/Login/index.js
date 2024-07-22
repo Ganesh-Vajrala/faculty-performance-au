@@ -31,12 +31,15 @@ const Login = ({ history }) => {
         setMail(event.target.value);
     };
 
+
     const onChangeCode = (event) => {
         setCode(event.target.value);
+        
     };
 
     const onChangePassword = (event) => {
         setPassword(event.target.value);
+        console.log(password)
     };
     const onSubmitSuccess = (jwtToken) => {
         Cookies.set('jwt_token', jwtToken, {

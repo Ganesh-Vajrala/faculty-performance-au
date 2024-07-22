@@ -267,12 +267,11 @@ const ProfileSection = () =>{
         }
     
         if (calculateTotalYearsWorked(tempJobExperiences) === parseInt(experience)) {
-          console.log(experience);
           setError("");
           const postData = {
             image: photo,
             firstname: firstName,
-            lastname: lastName,
+              astname: lastName,
             gender: selectedGender,
             designation,
             dateOfjoining: startDate,
@@ -584,49 +583,51 @@ const ProfileSection = () =>{
         <p>Are you a doctorate degree holder?</p>
     </div>
     <div className="col-12 mt-0 gender-option-container">
-    <div className="form-check mt-0">
-        <input 
-        className="form-check-input"
-         type="radio"
-         name="doctrate"
-         value="Yes"
-         id="yes"
-        checked={doctrate === 'Yes'}
-        onChange={handleDoctrateChange}
-         required/>
-        <label className="form-check-label" htmlFor="yes"  style={{cursor:"pointer"}}>
-            Yes
-        </label>
+      <div className="form-check mt-0">
+          <input 
+            className="form-check-input"
+            type="radio"
+            name="doctrate"
+            value="Yes"
+            id="yes"
+            checked={doctrate === 'Yes'}
+            onChange={handleDoctrateChange}
+            required
+          />
+          <label className="form-check-label" htmlFor="yes"  style={{cursor:"pointer"}}>
+              Yes
+          </label>
+      </div>
+      <div className="form-check mt-0" >
+          <input
+            className="form-check-input"
+            type="radio"
+            name="doctrate"
+            value="No"
+            id="no"
+            checked={doctrate === 'No'}
+            onChange={handleDoctrateChange}
+            required
+          />
+          <label className="form-check-label" htmlFor="no" style={{cursor:"pointer"}}>
+              No
+          </label>
+          {(isRequired[4] === 1) && (
+            <div style={{color:"red", fontSize:"14px"}}>
+                *Required
+            </div>
+            )}
+      </div>
     </div>
-    <div className="form-check mt-0" >
-        <input
-        className="form-check-input"
-        type="radio"
-        name="doctrate"
-        value="No"
-        id="no"
-        checked={doctrate === 'No'}
-        onChange={handleDoctrateChange}
-        required/>
-        <label className="form-check-label" htmlFor="no" style={{cursor:"pointer"}}>
-            No
-        </label>
-        {(isRequired[4] === 1) && (
-          <div style={{color:"red", fontSize:"14px"}}>
-              *Required
-          </div>
-          )}
-    </div>
-    </div>
-    <div className="col-12 d-flex justify-content-center align-items-center " style={{color:"red", fontSize:"14px"}}>
-      {error}
-    </div>
+      <div className="col-12 d-flex justify-content-center align-items-center " style={{color:"red", fontSize:"14px"}}>
+        {error}
+      </div>
     {showSubmitMessage && <p className="error-message">*{errorMsg}</p>}
-    <div className="col-12 ">
-        <button className="profile-submit-button" type="submit">
-        {loading ? <SpinnerCircularFixed size={24} thickness={100} speed={100} color="rgba(255, 255, 255, 1)" secondaryColor="rgba(0, 0, 0, 0)" /> : "Save"}
-          </button>
-    </div>
+      <div className="col-12 ">
+          <button className="profile-submit-button" type="submit">
+          {loading ? <SpinnerCircularFixed size={24} thickness={100} speed={100} color="rgba(255, 255, 255, 1)" secondaryColor="rgba(0, 0, 0, 0)" /> : "Save"}
+            </button>
+      </div>
      </form>
      
     </div>

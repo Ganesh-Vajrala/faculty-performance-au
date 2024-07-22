@@ -1,8 +1,11 @@
+
 import { createStore } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; 
+import storage from 'redux-persist/lib/storage';
+
 const initialState = {
-  myData: null
+  myData: null,
+  selectedYear: ''
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -11,6 +14,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         myData: action.payload
+      };
+    case 'SET_SELECTED_YEAR':
+      return {
+        ...state,
+        selectedYear: action.payload
       };
     default:
       return state;

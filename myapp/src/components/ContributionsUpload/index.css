@@ -2,7 +2,8 @@ table {
     font-family: 'Roboto';
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
+    
   }
   
   table, th, td, tr {
@@ -26,3 +27,15 @@ table {
   th {
     font-weight: bold;
   }
+  .error-container{
+    background-color: red;
+    padding: 0;
+  }
+  .margin-setting{
+    margin-top:0;
+    padding-top: 0;
+  }
+  .error-message{
+    margin: 0;
+  }
+  
